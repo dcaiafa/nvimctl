@@ -23,23 +23,29 @@ type Command struct {
 	Output  bool
 }
 
-func NvimExec(nv *nvim.Nvim, cmd *Command) (string, error) {
+func NvimEscape(nv *nvim.Nvim, vs []string) ([]string, error) {
 	batch := nv.NewBatch()
 
-	cmdParts := make([]string, 0, len(cmd.Args)+1)
-	cmdParts = append(cmdParts, cmd.Command)
-
-	for _, arg := range cmd.Args {
-		cmdParts = append(cmdParts, "")
-		batch.Call("fnameescape", &cmdParts[len(cmdParts)-1], arg)
+	evs := make([]string, len(vs))
+	for i, v := range vs {
+		batch.Call("fnameescape", &evs[i], v)
 	}
 	err := batch.Execute()
 	if err != nil {
-		return "", fmt.Errorf("failed to escape arguments: %w", err)
+		return nil, fmt.Errorf("failed to escape values: %w", err)
+	}
+
+	return evs, nil
+}
+
+func NvimExec(nv *nvim.Nvim, cmd *Command) (string, error) {
+	cmdParts := append([]string{cmd.Command}, cmd.Args...)
+	cmdParts, err := NvimEscape(nv, cmdParts)
+	if err != nil {
+		return "", err
 	}
 
 	fullCmd := strings.Join(cmdParts, " ")
-
 	output, err := nv.Exec(fullCmd, cmd.Output)
 	if err != nil {
 		return "", fmt.Errorf("failed to execute command: %w", err)
