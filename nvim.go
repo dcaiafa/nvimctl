@@ -53,3 +53,12 @@ func NvimExec(nv *nvim.Nvim, cmd *Command) (string, error) {
 
 	return output, nil
 }
+
+func LeaveTerminal(nv *nvim.Nvim) error {
+	// Leave terminal mode if necessary (equivalent to feedkeys Ctrl-\ Ctrl-N).
+	err := nv.FeedKeys("\x1c\x0e", "n", false)
+	if err != nil {
+		return fmt.Errorf("failed to leave terminal mode: %w", err)
+	}
+	return nil
+}

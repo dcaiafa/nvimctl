@@ -35,10 +35,10 @@ You can combine movements, e.g., "hjl" to move left, down, then right.`,
 			return fmt.Errorf("failed to get absolute path: %w", err)
 		}
 
-		// Leave terminal mode if necessary (equivalent to feedkeys Ctrl-\ Ctrl-N).
-		err = nv.FeedKeys("\x1c\x0e", "n", false)
+		// Leave terminal mode if necessary.
+		err = LeaveTerminal(nv)
 		if err != nil {
-			return fmt.Errorf("failed to leave terminal mode: %w", err)
+			return err
 		}
 
 		// Apply window movements if provided.

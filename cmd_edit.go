@@ -28,9 +28,9 @@ func cmdEdit() *cobra.Command {
 		}
 
 		// Leave terminal mode if necessary.
-		err = nv.FeedKeys("\x1c\x0e", "n", false)
+		err = LeaveTerminal(nv)
 		if err != nil {
-			return fmt.Errorf("failed to leave terminal mode: %w", err)
+			return err
 		}
 
 		// Create a channel to wait for buffer close notification.
