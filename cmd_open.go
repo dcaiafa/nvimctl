@@ -11,15 +11,9 @@ func cmdOpen() *cobra.Command {
 	c := &cobra.Command{
 		Use:   "open <file> [wincmd]",
 		Short: "Open a file in Neovim with optional window movement",
-		Long: `Open a file in Neovim. Optionally specify window movements before opening.
-		
-Example window movements:
-  h - move to left window
-  j - move to bottom window
-  k - move to top window
-  l - move to right window
-  
-You can combine movements, e.g., "hjl" to move left, down, then right.`,
+		Long:  `Open a file in Neovim. Optionally specify window movements before opening.`,
+		Example: `nvimctl open README.md     # open README.md on the current window
+nvimctl open README.md hk  # open README.md on top-left window`,
 		Args: cobra.RangeArgs(1, 2),
 	}
 

@@ -4,9 +4,7 @@ import "github.com/spf13/cobra"
 
 func CmdRoot() *cobra.Command {
 	c := &cobra.Command{
-		Short:   "Control cli for neovim",
-		Long:    "",
-		Example: "",
+		Short: "neovimctl is a cli for neovim",
 	}
 
 	c.AddCommand(cmdCD())

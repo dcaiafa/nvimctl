@@ -9,8 +9,9 @@ import (
 
 func cmdCD() *cobra.Command {
 	c := &cobra.Command{
-		Use:  "cd path",
-		Args: cobra.ExactArgs(1),
+		Use:   "cd <path>",
+		Short: "Change neovim's current directory",
+		Args:  cobra.ExactArgs(1),
 	}
 
 	c.RunE = func(cmd *cobra.Command, args []string) error {

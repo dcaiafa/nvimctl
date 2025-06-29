@@ -10,8 +10,7 @@ import (
 func cmdEdit() *cobra.Command {
 	c := &cobra.Command{
 		Use:   "edit <file>",
-		Short: "Edit a file in a new split window",
-		Long:  `Opens a file in a new split window and blocks until the window or buffer is closed.`,
+		Short: "Edit a file in a new split window blocking until it is done",
 		Args:  cobra.ExactArgs(1),
 	}
 
