@@ -12,7 +12,7 @@ Standard Go commands are used for development:
 - `go build` - Build the nvimctl binary
 - `go run . [command]` - Run without building
 - `go mod tidy` - Clean up module dependencies
-- `go test ./...` - Run tests (no tests currently exist)
+- `go test ./...` - Run tests (no tests currently exist) - **Use this for verification instead of `go build` to avoid creating executables**
 - `go fmt ./...` - Format code
 
 ## Architecture
