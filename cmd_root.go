@@ -10,6 +10,7 @@ func CmdRoot() *cobra.Command {
 	}
 
 	c.AddCommand(cmdCD())
+	c.AddCommand(cmdOpen())
 
 	return c
 }

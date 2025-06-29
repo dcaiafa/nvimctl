@@ -26,9 +26,12 @@ func cmdCD() *cobra.Command {
 			return nil
 		}
 
-		return nv.ExecLua(
-			"local target_path = (...); vim.api.nvim_set_current_dir(target_path)",
-			nil, targetPath)
+		_, err = NvimExec(nv, &Command{
+			Command: "cd",
+			Args:    []string{targetPath},
+		})
+
+		return err
 	}
 
 	return c
