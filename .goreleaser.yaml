@@ -12,23 +12,12 @@ builds:
       - linux
       - windows
       - darwin
-    goarch:
-      - amd64
-      - arm64
-      - arm
-    goarm:
-      - "7"
-    ignore:
-      - goos: windows
-        goarch: arm
-      - goos: windows
-        goarch: arm64
     binary: nvimctl
     ldflags:
       - -s -w
 
 archives:
-  - format: tar.gz
+  - formats: tar.gz
     # This name template makes the OS and Arch compatible with the results
     # of `uname`.
     name_template: >-
@@ -41,18 +30,7 @@ archives:
     # Use zip for windows archives.
     format_overrides:
       - goos: windows
-        format: zip
-
-release:
-  github:
-    owner: dcaiafa
-    name: nvimctl
-
-checksum:
-  name_template: 'checksums.txt'
-
-snapshot:
-  version_template: "{{ incpatch .Version }}-next"
+        formats: zip
 
 changelog:
   sort: asc
