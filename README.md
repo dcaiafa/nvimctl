@@ -12,7 +12,7 @@ variable and executes commands through Neovim's Lua API.
 
 Download the [latest
 release](https://github.com/dcaiafa/nvimctl/releases/latest), unpack, and copy
-to your PATH.
+the nvimctl executable to your PATH.
 
 Or install the latest using Go:
 
