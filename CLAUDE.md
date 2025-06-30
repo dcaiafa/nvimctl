@@ -25,14 +25,14 @@ The project uses the Cobra library for CLI commands. Each command:
 
 ### Adding New Commands
 To add a new command:
-1. Create `cmd_yourcommand.go`. Use `cmd_pwd.go` as a reference.
+1. Create `cmd_yourcommand.go`. Use `cmd_cd.go` as a reference.
 2. Register in `cmd_root.go`: `c.AddCommand(cmdYourCommand())`
 
 ### Neovim Connection and Command Execution
 - Requires the `NVIM` environment variable (set automatically when running from Neovim terminal)
 - Connection established via `DialNvim()` in `nvim.go`
-- Commands should use `NvimExec()` for executing Neovim commands with automatic argument escaping
-- `NvimExec()` uses `fnameescape()` to properly escape arguments before execution
+- Use `NvimEscape` and `NvimEscapeSlice` to escape nvim arguments when necessary.
+- Use `cmd_diff.go` as a reference for commands that block.
 
 ### Key Dependencies
 - `github.com/spf13/cobra` - CLI framework
