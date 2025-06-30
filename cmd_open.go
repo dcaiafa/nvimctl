@@ -35,25 +35,23 @@ nvimctl open README.md hk  # open README.md on top-left window`,
 			return err
 		}
 
+		absPathEscaped, err := NvimEscape(nv, absPath)
+		if err != nil {
+			return err
+		}
+
 		// Apply window movements if provided.
 		if len(args) > 1 {
 			wincmd := args[1]
 			for _, pos := range wincmd {
-				_, err = NvimExec(nv, &Command{
-					Command: "wincmd",
-					Args:    []string{string(pos)},
-				})
+				_, err = nv.Exec("wincmd "+string(pos), false)
 				if err != nil {
 					return fmt.Errorf("failed to execute wincmd %c: %w", pos, err)
 				}
 			}
 		}
 
-		// Open the file using drop command.
-		_, err = NvimExec(nv, &Command{
-			Command: "drop",
-			Args:    []string{absPath},
-		})
+		_, err = nv.Exec("drop "+absPathEscaped, false)
 		if err != nil {
 			return fmt.Errorf("failed to open file: %w", err)
 		}

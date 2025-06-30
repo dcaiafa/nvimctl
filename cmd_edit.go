@@ -41,7 +41,7 @@ func cmdEdit() *cobra.Command {
 		})
 
 		// Escape the file path.
-		escaped, err := NvimEscape(nv, []string{absPath})
+		escaped, err := NvimEscapeSlice(nv, []string{absPath})
 		if err != nil {
 			return fmt.Errorf("failed to escape path: %w", err)
 		}

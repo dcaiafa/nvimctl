@@ -25,34 +25,7 @@ The project uses the Cobra library for CLI commands. Each command:
 
 ### Adding New Commands
 To add a new command:
-1. Create `cmd_yourcommand.go`:
-```go
-func cmdYourCommand() *cobra.Command {
-    c := &cobra.Command{
-        Use:   "yourcommand [args]",
-        Short: "Brief description",
-        Args:  cobra.ExactArgs(1),
-    }
-    
-    c.RunE = func(cmd *cobra.Command, args []string) error {
-        nv, err := DialNvim()
-        if err != nil {
-            return fmt.Errorf("failed to connect to nvim: %w", err)
-        }
-        
-        // Execute Neovim commands using NvimExec.
-        _, err = NvimExec(nv, &Command{
-            Command: "yourcommand",
-            Args:    []string{arg1, arg2},
-            Output:  false, // Set to true if you need command output.
-        })
-        
-        return err
-    }
-    
-    return c
-}
-```
+1. Create `cmd_yourcommand.go`. Use `cmd_pwd.go` as a reference.
 2. Register in `cmd_root.go`: `c.AddCommand(cmdYourCommand())`
 
 ### Neovim Connection and Command Execution

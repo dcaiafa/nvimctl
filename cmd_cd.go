@@ -27,10 +27,15 @@ func cmdCD() *cobra.Command {
 			return nil
 		}
 
-		_, err = NvimExec(nv, &Command{
-			Command: "cd",
-			Args:    []string{targetPath},
-		})
+		targetPathEscaped, err := NvimEscape(nv, targetPath)
+		if err != nil {
+			return err
+		}
+
+		_, err = nv.Exec("cd "+targetPathEscaped, false)
+		if err != nil {
+			return err
+		}
 
 		return err
 	}

@@ -11,6 +11,7 @@ func CmdRoot() *cobra.Command {
 	c.AddCommand(cmdOpen())
 	c.AddCommand(cmdEdit())
 	c.AddCommand(cmdDiff())
+	c.AddCommand(cmdPwd())
 
 	return c
 }

@@ -43,7 +43,7 @@ func cmdDiff() *cobra.Command {
 		notifyRPC := fmt.Sprintf(`call rpcnotify(%v, "nvimctl_diff_done")`, nv.ChannelID())
 
 		// Escape the file paths to be used in commands.
-		escaped, err := NvimEscape(nv, []string{absPath1, absPath2})
+		escaped, err := NvimEscapeSlice(nv, []string{absPath1, absPath2})
 		if err != nil {
 			return fmt.Errorf("failed to escape paths: %w", err)
 		}

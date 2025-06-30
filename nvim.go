@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"os"
-	"strings"
 
 	"github.com/neovim/go-client/nvim"
 )
@@ -23,7 +22,15 @@ type Command struct {
 	Output  bool
 }
 
-func NvimEscape(nv *nvim.Nvim, vs []string) ([]string, error) {
+func NvimEscape(nv *nvim.Nvim, v string) (string, error) {
+	evs, err := NvimEscapeSlice(nv, []string{v})
+	if err != nil {
+		return "", err
+	}
+	return evs[0], nil
+}
+
+func NvimEscapeSlice(nv *nvim.Nvim, vs []string) ([]string, error) {
 	batch := nv.NewBatch()
 
 	evs := make([]string, len(vs))
@@ -32,26 +39,10 @@ func NvimEscape(nv *nvim.Nvim, vs []string) ([]string, error) {
 	}
 	err := batch.Execute()
 	if err != nil {
-		return nil, fmt.Errorf("failed to escape values: %w", err)
+		return nil, fmt.Errorf("failed to escape value: %w", err)
 	}
 
 	return evs, nil
-}
-
-func NvimExec(nv *nvim.Nvim, cmd *Command) (string, error) {
-	cmdParts := append([]string{cmd.Command}, cmd.Args...)
-	cmdParts, err := NvimEscape(nv, cmdParts)
-	if err != nil {
-		return "", err
-	}
-
-	fullCmd := strings.Join(cmdParts, " ")
-	output, err := nv.Exec(fullCmd, cmd.Output)
-	if err != nil {
-		return "", fmt.Errorf("failed to execute command: %w", err)
-	}
-
-	return output, nil
 }
 
 func LeaveTerminal(nv *nvim.Nvim) error {
